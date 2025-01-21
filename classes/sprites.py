@@ -20,19 +20,19 @@ class Sprites:
         )
 
     def loadSprites(self, urlList):
-        resDict = {}
+        resDict = dict()
         for url in urlList:
             with open(url) as jsonData:
                 data = json.load(jsonData)
                 mySpritesheet = Spritesheet(data["spriteSheetURL"])
-                dic = {}
+                spritesDict = dict()
                 if data["type"] == "background":
                     for sprite in data["sprites"]:
                         try:
                             colorkey = sprite["colorKey"]
                         except KeyError:
                             colorkey = None
-                        dic[sprite["name"]] = Sprite(
+                        spritesDict[sprite["name"]] = Sprite(
                             mySpritesheet.image_at(
                                 sprite["x"],
                                 sprite["y"],
@@ -43,7 +43,7 @@ class Sprites:
                             None,
                             sprite["redrawBg"],
                         )
-                    resDict.update(dic)
+                    resDict.update(spritesDict)
                     continue
                 elif data["type"] == "animation":
                     for sprite in data["sprites"]:
@@ -57,12 +57,12 @@ class Sprites:
                                     colorkey=sprite["colorKey"],
                                 )
                             )
-                        dic[sprite["name"]] = Sprite(
+                        spritesDict[sprite["name"]] = Sprite(
                             None,
                             None,
                             animation=Animation(images, deltaTime=sprite["deltaTime"]),
                         )
-                    resDict.update(dic)
+                    resDict.update(spritesDict)
                     continue
                 elif data["type"] == "character" or data["type"] == "item":
                     for sprite in data["sprites"]:
@@ -75,7 +75,7 @@ class Sprites:
                             ySize = sprite['ysize']
                         except KeyError:
                             xSize, ySize = data['size']
-                        dic[sprite["name"]] = Sprite(
+                        spritesDict[sprite["name"]] = Sprite(
                             mySpritesheet.image_at(
                                 sprite["x"],
                                 sprite["y"],
@@ -87,6 +87,6 @@ class Sprites:
                             ),
                             sprite["collision"],
                         )
-                    resDict.update(dic)
+                    resDict.update(spritesDict)
                     continue
         return resDict

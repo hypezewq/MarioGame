@@ -9,7 +9,7 @@ class Font(Spritesheet):
         self.charSprites = self.loadFont()
 
     def loadFont(self):
-        font = {}
+        font = dict()
         row = 0
         charAt = 0
 

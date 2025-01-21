@@ -89,7 +89,7 @@ class Level:
             for yOff in range(0, 2):
                 for xOff in range(0, 3):
                     self.level[y + yOff][x + xOff] = Tile(
-                        self.sprites.spriteCollection.get("cloud{}_{}".format(yOff + 1, xOff + 1)), None, )
+                        self.sprites.spriteCollection.get(f"cloud{yOff + 1}_{xOff + 1}"), None, )
         except IndexError:
             return
 
