@@ -53,7 +53,7 @@ class Input:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN and \
-                (event.key == pygame.K_ESCAPE or event.key == pygame.K_F5):
+                    (event.key == pygame.K_ESCAPE or event.key == pygame.K_F5):
                 self.entity.pause = True
                 self.entity.pauseObj.createBackgroundBlur()
 

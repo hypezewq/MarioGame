@@ -17,7 +17,7 @@ class Collider:
         except Exception:
             return
         for row in rows:
-            tiles = row[self.entity.getPosIndex().x : self.entity.getPosIndex().x + 2]
+            tiles = row[self.entity.getPosIndex().x: self.entity.getPosIndex().x + 2]
             for tile in tiles:
                 if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):
@@ -30,7 +30,7 @@ class Collider:
 
     def checkY(self):
         self.entity.onGround = False
-        
+
         try:
             rows = [
                 self.level[self.entity.getPosIndex().y],
@@ -44,7 +44,7 @@ class Collider:
                 self.entity.alive = None
             return
         for row in rows:
-            tiles = row[self.entity.getPosIndex().x : self.entity.getPosIndex().x + 2]
+            tiles = row[self.entity.getPosIndex().x: self.entity.getPosIndex().x + 2]
             for tile in tiles:
                 if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):

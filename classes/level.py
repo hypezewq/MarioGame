@@ -3,6 +3,13 @@ import pygame
 
 from classes.sprites import Sprites
 from classes.tile import Tile
+from entities.Coin import Coin
+from entities.CoinBrick import CoinBrick
+from entities.Goomba import Goomba
+from entities.Mushroom import RedMushroom
+from entities.Koopa import Koopa
+from entities.CoinBox import CoinBox
+from entities.RandomBox import RandomBox
 
 
 class Level:
@@ -24,7 +31,16 @@ class Level:
             self.levelLength = data["length"]
 
     def loadEntities(self, data):
-        pass
+        try:
+            [self.addCoinBox(x, y) for x, y in data["level"]["entities"]["CoinBox"]]
+            [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
+            [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
+            [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
+            [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
+            [self.addRandomBox(x, y, item) for x, y, item in data["level"]["entities"]["RandomBox"]]
+        except:
+            # if no entities in Level
+            pass
 
     def loadLayers(self, data):
         layers = []
@@ -129,3 +145,61 @@ class Level:
         except IndexError:
             return
 
+    def addCoinBox(self, x, y):
+        self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
+        self.entityList.append(
+            CoinBox(
+                self.screen,
+                self.sprites.spriteCollection,
+                x,
+                y,
+                self.sound,
+                self.dashboard,
+            )
+        )
+
+    def addRandomBox(self, x, y, item):
+        self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
+        self.entityList.append(
+            RandomBox(
+                self.screen,
+                self.sprites.spriteCollection,
+                x,
+                y,
+                item,
+                self.sound,
+                self.dashboard,
+                self
+            )
+        )
+
+    def addCoin(self, x, y):
+        self.entityList.append(Coin(self.screen, self.sprites.spriteCollection, x, y))
+
+    def addCoinBrick(self, x, y):
+        self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
+        self.entityList.append(
+            CoinBrick(
+                self.screen,
+                self.sprites.spriteCollection,
+                x,
+                y,
+                self.sound,
+                self.dashboard
+            )
+        )
+
+    def addGoomba(self, x, y):
+        self.entityList.append(
+            Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
+
+    def addKoopa(self, x, y):
+        self.entityList.append(
+            Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
+
+    def addRedMushroom(self, x, y):
+        self.entityList.append(
+            RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )

@@ -3,7 +3,7 @@ from classes.dashboard import Dashboard
 from classes.level import Level
 from classes.menu import Menu
 from classes.sound import Sound
-
+from entities.Mario import Mario
 
 windowSize = 640, 480
 
@@ -22,10 +22,18 @@ def main():
     while not menu.start:
         menu.update()
 
+    mario = Mario(0, 0, level, screen, dashboard, sound)
     clock = pygame.time.Clock()
 
-    pygame.display.update()
-    clock.tick(max_frame_rate)
+    while not mario.restart:
+        if mario.pause:
+            mario.pauseObj.update()
+        else:
+            level.drawLevel(mario.camera)
+            dashboard.update()
+            mario.update()
+        pygame.display.update()
+        clock.tick(max_frame_rate)
     return 'restart'
 
 

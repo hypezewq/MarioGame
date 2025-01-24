@@ -1,7 +1,7 @@
 from classes.animation import Animation
-from classes.Collider import Collider
-from classes.EntityCollider import EntityCollider
-from classes.Maths import Vec2D
+from classes.collider import Collider
+from classes.entitycollider import EntityCollider
+from classes.maths import Vec2D
 from entities.EntityBase import EntityBase
 from traits.leftrightwalk import LeftRightWalkTrait
 
@@ -61,7 +61,7 @@ class Goomba(EntityBase):
     def movePointsTextUpAndDraw(self, camera):
         self.textPos.y += -0.5
         self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
-    
+
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
             collisionState = self.EntityCollider.check(ent)
