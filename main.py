@@ -25,9 +25,12 @@ def main():
     mario = Mario(0, 0, level, screen, dashboard, sound)
     clock = pygame.time.Clock()
 
+
     while not mario.restart:
         if mario.pause:
             mario.pauseObj.update()
+        elif mario.win:
+            mario.winObj.update()
         else:
             level.drawLevel(mario.camera)
             dashboard.update()

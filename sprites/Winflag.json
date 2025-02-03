@@ -1,0 +1,36 @@
+{
+  "spriteSheetURL": "./img/blocks_and_enemies_spritesheet.jpg",
+  "type": "character",
+  "sprites": [
+    {
+      "name": "winflag",
+      "x": 64,
+      "y": 60,
+      "scalefactor": 2,
+      "collision": false,
+      "xsize": 24,
+      "ysize": 19
+
+    },
+    {
+      "name": "winflag_pipe",
+      "x": 64,
+      "y": 96,
+      "scalefactor": 2,
+      "collision": false,
+      "colorKey": 0,
+      "xsize": 18,
+      "ysize": 32
+    },
+    {
+      "name": "flag",
+      "x": 18,
+      "y": 79,
+      "scalefactor": 1,
+      "collision": false,
+      "colorKey": 0,
+      "xsize": 42,
+      "ysize": 31
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from entities.Mushroom import RedMushroom
 from entities.Koopa import Koopa
 from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
+from entities.Winflag import WinFlag
 
 
 class Level:
@@ -20,6 +21,7 @@ class Level:
         self.screen = screen
         self.level = None
         self.levelLength = 0
+        self.levelname = None
         self.entityList = []
 
     def loadLevel(self, levelname):
@@ -29,6 +31,7 @@ class Level:
             self.loadObjects(data)
             self.loadEntities(data)
             self.levelLength = data["length"]
+            self.levelname = levelname
 
     def loadEntities(self, data):
         try:
@@ -76,6 +79,11 @@ class Level:
                 self.sprites.spriteCollection.get("ground"),
                 pygame.Rect(x * 32, y * 32, 32, 32),
             )
+        for winflag in data["level"]["objects"]["winflag"]:
+            self.addWinFlag(winflag)
+
+
+
 
     def updateEntities(self, cam):
         for entity in self.entityList:
@@ -157,6 +165,14 @@ class Level:
                 self.dashboard,
             )
         )
+
+    def addWinFlag(self, winflag):
+        x, y, pipes = winflag
+        self.level[y][x] = Tile(self.sprites.spriteCollection.get("winflag"), None)
+        self.entityList.append(WinFlag(self.screen, self.sprites.spriteCollection, x, y, self))
+        for x, y in pipes:
+            self.level[y][x] = Tile(self.sprites.spriteCollection.get("winflag_pipe"), None)
+
 
     def addRandomBox(self, x, y, item):
         self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))

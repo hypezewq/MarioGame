@@ -6,8 +6,10 @@ from classes.collider import Collider
 from classes.entitycollider import EntityCollider
 from classes.input import Input
 from classes.sprites import Sprites
+from classes.win import Win
 from entities.EntityBase import EntityBase
 from entities.Mushroom import RedMushroom
+from entities.Winflag import WinFlag
 from traits.bounce import bounceTrait
 from traits.go import GoTrait
 from traits.jump import JumpTrait
@@ -57,7 +59,11 @@ class Mario(EntityBase):
         self.dashboard = dashboard
         self.restart = False
         self.pause = False
+        self.win = False
+        self.lose = False
         self.pauseObj = Pause(screen, self, dashboard)
+        self.winObj = Win(screen, self, dashboard)
+        self.loseObj = ...
 
     def update(self):
         if self.invincibilityFrames > 0:
@@ -85,6 +91,14 @@ class Mario(EntityBase):
                     self._onCollisionWithBlock(ent)
                 elif ent.type == "Mob":
                     self._onCollisionWithMob(ent, collisionState)
+                elif ent.type == "Object":
+                    self._onCollisionWithObject(ent, collisionState)
+
+
+
+    def _onCollisionWithObject(self, object: WinFlag, collissonstate):
+        print(self.levelObj.levelname)
+        self.win = True
 
     def _onCollisionWithItem(self, item):
         self.levelObj.entityList.remove(item)
