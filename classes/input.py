@@ -30,8 +30,10 @@ class Input:
 
         self.entity.traits['goTrait'].boost = pressedKeys[K_LSHIFT]
 
+    """
     def checkForMouseInput(self, events):
         mouseX, mouseY = pygame.mouse.get_pos()
+        
         if self.isRightMouseButtonPressed(events):
             self.entity.levelObj.addKoopa(
                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
@@ -46,6 +48,7 @@ class Input:
             self.entity.levelObj.addCoin(
                 mouseX / 32 - self.entity.camera.pos.x, mouseY / 32
             )
+    """ # это для деббага
 
     def checkForQuitAndRestartInputEvents(self, events):
         for event in events:
