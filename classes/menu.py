@@ -16,6 +16,7 @@ class Menu:
         self.level = level
         self.music = True
         self.sfx = True
+        self.level_ = 1
         self.currSelectedLevel = 1
         self.levelNames = []
         self.inChoosingLevel = False
@@ -70,6 +71,10 @@ class Menu:
         try:
             with open(url) as jsonData:
                 data = json.load(jsonData)
+                try:
+                    self.level_ = data["level"]
+                except KeyError:
+                    self.level_ = 1
                 if data["sound"]:
                     self.music = True
                     self.sound.music_channel.play(self.sound.soundtrack, loops=-1)
@@ -85,10 +90,11 @@ class Menu:
             self.music = False
             self.sound.allowSFX = False
             self.sfx = False
+            self.level_ = 1
             self.saveSettings("./settings.json")
 
     def saveSettings(self, url):
-        data = {"sound": self.music, "sfx": self.sfx}
+        data = {"sound": self.music, "sfx": self.sfx, "level": self.level_}
         with open(url, "w") as outfile:
             json.dump(data, outfile)
 
@@ -183,6 +189,8 @@ class Menu:
         for r, d, f in os.walk("./levels"):
             for file in f:
                 files.append(os.path.join(r, file))
+                if len(files) == self.level_:
+                    break
         for f in files:
             res.append(os.path.split(f)[1].split(".")[0])
         self.levelCount = len(res)

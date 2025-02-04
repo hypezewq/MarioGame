@@ -30,6 +30,10 @@ def main():
         if mario.pause:
             mario.pauseObj.update()
         elif mario.win:
+            passed_level = int(mario.levelObj.levelname.split()[-1])
+            if passed_level >= menu.level_:
+                menu.level_ = passed_level + 1
+                menu.saveSettings("settings.json")
             mario.winObj.update()
         else:
             level.drawLevel(mario.camera)

@@ -12,7 +12,7 @@ class Input:
     def checkForInput(self):
         events = pygame.event.get()
         self.checkForKeyboardInput()
-        self.checkForMouseInput(events)
+        #self.checkForMouseInput(events)
         self.checkForQuitAndRestartInputEvents(events)
 
     def checkForKeyboardInput(self):

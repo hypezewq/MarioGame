@@ -97,7 +97,6 @@ class Mario(EntityBase):
 
 
     def _onCollisionWithObject(self, object: WinFlag, collissonstate):
-        print(self.levelObj.levelname)
         self.win = True
 
     def _onCollisionWithItem(self, item):
